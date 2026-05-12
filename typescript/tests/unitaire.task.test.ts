@@ -38,5 +38,39 @@ describe("Task (unitaire)", () => {
     expect(d.createdAt).toBeDefined();
   });
 
-  // TODO ELEVE : ajoutez au moins 2 tests unitaires supplementaires ici.
+  it("utilise une description vide par defaut", () => {
+    // Arrange
+    const id = 10;
+    const titre = "Tache sans description";
+    // Act
+    const tache = new Task({ id, title: titre });
+    // Assert
+    expect(tache.description).toBe("");
+  });
+
+  it("conserve une date ISO valide dans dueDate", () => {
+    // Arrange
+    const dueDate = "2026-11-15";
+    // Act
+    const tache = new Task({ id: 11, title: "Planifier", dueDate });
+    // Assert
+    expect(tache.dueDate).toBe(dueDate);
+  });
+
+  it("fromDict reconstruit une tache avec les champs attendus", () => {
+    // Arrange
+    const data = {
+      id: 12,
+      title: "Relire le cours",
+      description: "Chapitre tests",
+      priority: "low" as const,
+      status: "doing" as const,
+      dueDate: "2026-10-01",
+      createdAt: "2026-05-12T09:00:00",
+    };
+    // Act
+    const tache = Task.fromDict(data);
+    // Assert
+    expect(tache.toDict()).toEqual(data);
+  });
 });
