@@ -47,4 +47,21 @@ describe("Integration : storage + taskManager", () => {
     const nouvelle = mgr2.createTask({ title: "Suivante" });
     expect(nouvelle.id).toBe(2);
   });
+
+  // Partie 4 - Tests de regression.
+  it("modifier une tache puis sauvegarder et recharger preserve le changement", () => {
+    const fichier = join(tmpDir, "taches.json");
+    const mgr = new TaskManager();
+    mgr.createTask({ title: "A traiter", priority: "low" });
+    mgr.createTask({ title: "Deja fait", priority: "medium" });
+    mgr.markDone(2);
+
+    saveTasks(fichier, mgr.listTasks({ sortBy: "id" }));
+
+    const mgr2 = new TaskManager();
+    mgr2.replaceAll(loadTasks(fichier));
+    const t2 = mgr2.getTask(2);
+    expect(t2.status).toBe("done");
+    expect(mgr2.getTask(1).status).toBe("todo");
+  });
 });

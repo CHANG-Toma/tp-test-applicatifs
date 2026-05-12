@@ -35,4 +35,19 @@ describe("Fonctionnels", () => {
     const mgr = new TaskManager();
     expect(() => mgr.getTask(999)).toThrow(TaskNotFoundError);
   });
+
+  // Partie 4 - Tests de regression.
+  it("le filtre status done ne renvoie que des taches terminees", () => {
+    const mgr = new TaskManager();
+    mgr.createTask({ title: "En cours" });
+    mgr.createTask({ title: "Terminee une" });
+    mgr.createTask({ title: "Terminee deux" });
+    mgr.markDone(2);
+    mgr.markDone(3);
+
+    const liste = mgr.listTasks({ statusFilter: "done" });
+    expect(liste.length).toBe(2);
+    expect(liste.every((t) => t.status === "done")).toBe(true);
+    expect(liste.map((t) => t.id).sort()).toEqual([2, 3]);
+  });
 });
