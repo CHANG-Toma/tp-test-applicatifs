@@ -1,8 +1,6 @@
 /**
- * Gestionnaire de taches (version STARTER).
- *
- * ATTENTION ELEVES : ce module contient au moins UN BUG volontaire (deleteTask).
- * Vous le decouvrirez en Partie 4 (regression) du TP.
+ * Gestionnaire de taches.
+ * deleteTask supprime par identifiant de tache (voir tests/regression.test.ts).
  */
 
 import { Task } from "./task.js";
@@ -67,12 +65,11 @@ export class TaskManager {
   }
 
   deleteTask(taskId: number): boolean {
-    // BUG VOLONTAIRE : on traite taskId comme un INDEX au lieu d'un ID.
-    // A corriger en Partie 4 du TP avec un test de regression.
-    if (taskId < 0 || taskId >= this.tasks.length) {
+    const index = this.tasks.findIndex((t) => t.id === taskId);
+    if (index === -1) {
       throw new TaskNotFoundError(`Aucune tache trouvee avec id=${taskId}.`);
     }
-    this.tasks.splice(taskId, 1);
+    this.tasks.splice(index, 1);
     return true;
   }
 

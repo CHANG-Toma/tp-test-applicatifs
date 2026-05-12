@@ -7,6 +7,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { TaskManager } from "../src/taskManager.js";
 import { saveTasks, loadTasks } from "../src/storage.js";
+import { TaskNotFoundError } from "../src/errors.js";
 
 describe("E2E - parcours utilisateur complet", () => {
   let tmpDir: string;
@@ -50,5 +51,23 @@ describe("E2E - parcours utilisateur complet", () => {
     mgr2.replaceAll(loadTasks(fichier));
     expect(mgr2.getStats().total).toBe(3);
     expect(mgr2.getStats().done).toBe(2);
+  });
+
+  it("E2E : creer plusieurs taches, supprimer par id, stats et persistance coherentes", () => {
+    const fichier = join(tmpDir, "nettoyage.json");
+    const mgr = new TaskManager();
+    mgr.createTask({ title: "A", priority: "low" });
+    mgr.createTask({ title: "B", priority: "high" });
+    mgr.createTask({ title: "C", priority: "medium" });
+    mgr.deleteTask(2);
+
+    expect(mgr.listTasks({ sortBy: "id" }).map((t) => t.title)).toEqual(["A", "C"]);
+    expect(mgr.getStats().total).toBe(2);
+
+    saveTasks(fichier, mgr.listTasks({ sortBy: "id" }));
+    const mgr2 = new TaskManager();
+    mgr2.replaceAll(loadTasks(fichier));
+    expect(mgr2.getStats().total).toBe(2);
+    expect(() => mgr2.getTask(2)).toThrow(TaskNotFoundError);
   });
 });

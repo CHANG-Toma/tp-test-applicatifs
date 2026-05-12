@@ -10,6 +10,7 @@
 
 import { describe, it, expect } from "vitest";
 import { TaskManager } from "../src/taskManager.js";
+import { TaskNotFoundError } from "../src/errors.js";
 
 describe("Regressions", () => {
   it("bug-001 : deleteTask supprime par id (pas par index)", () => {
@@ -24,6 +25,10 @@ describe("Regressions", () => {
     expect(idsRestants).toEqual([1, 3]);
   });
 
-  // TODO ELEVE - Partie 4 :
-  // Ajoutez un 2eme test de regression qui couvre un autre scenario du meme bug.
+  it("bug-001 variante : deleteTask sur id inexistant leve TaskNotFoundError (pas confusion index)", () => {
+    const mgr = new TaskManager();
+    mgr.createTask({ title: "Seule tache" });
+    expect(() => mgr.deleteTask(999)).toThrow(TaskNotFoundError);
+    expect(mgr.listTasks({ sortBy: "id" }).map((t) => t.id)).toEqual([1]);
+  });
 });
