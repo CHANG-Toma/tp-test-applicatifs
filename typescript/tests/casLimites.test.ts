@@ -33,5 +33,16 @@ describe("Cas limites", () => {
     expect(new TaskManager().getStats()).toEqual({ todo: 0, doing: 0, done: 0, total: 0 });
   });
 
-  // TODO ELEVE : ajoutez 2 tests de cas limites supplementaires.
+  it("description exactement a la longueur max est acceptee", () => {
+    // Frontiere metier : 500 caracteres doit passer, 501 est traite ailleurs en invalide.
+    const description = "d".repeat(500);
+    const t = new Task({ id: 2, title: "Tache avec description max", description });
+    expect(t.description.length).toBe(500);
+  });
+
+  it("date dueDate vide est normalisee a null", () => {
+    // Frontiere d'entree : une chaine vide pour la date est transformee en absence de date.
+    const t = new Task({ id: 3, title: "Sans echeance", dueDate: "" });
+    expect(t.dueDate).toBeNull();
+  });
 });
