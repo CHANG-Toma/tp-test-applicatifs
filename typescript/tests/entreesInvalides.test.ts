@@ -48,8 +48,9 @@ describe("Entrees invalides", () => {
     expect(() => new Task({ id: 1, title: "" })).toThrow(InvalidInputError);
   });
 
+
   it("date non-string est rejetee", () => {
-    // Regle metier : dueDate doit etre une chaine ISO AAAA-MM-JJ ou null.
+    // Regle metier : dueDate doit etre une chaine ISO AAAA-MM-JJ ou null
     expect(() => validateDueDate(20261231 as unknown as string)).toThrow(InvalidInputError);
   });
 });
