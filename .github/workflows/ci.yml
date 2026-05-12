@@ -6,30 +6,8 @@ on:
   pull_request:
     branches: [main]
 
+# Seuls les tests TypeScript sont exécutés en CI (rendu sans modification du dossier python/).
 jobs:
-  python-tests:
-    name: Python · pytest
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: python
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Python 3.12
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-          cache: pip
-          cache-dependency-path: python/requirements.txt
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Run pytest
-        run: pytest --tb=short
-
   typescript-tests:
     name: TypeScript · vitest
     runs-on: ubuntu-latest

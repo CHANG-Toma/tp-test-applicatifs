@@ -21,7 +21,7 @@ npm test
 | **II** | Cas limites (`casLimites.test.ts`) : description longueur max, `dueDate` vide → `null`, etc. Entrées invalides (`entreesInvalides.test.ts`) : date non chaîne, etc. |
 | **III** | Intégration : modification d’une tâche puis sauvegarde / rechargement JSON (`integration.test.ts`). Fonctionnel : filtre `status: done` et tâches terminées (`fonctionnel.test.ts`). |
 | **IV** | **Bug-001** : `deleteTask` confondait **index** et **id** — correction dans `src/taskManager.ts`. Deux tests de régression (`regression.test.ts`). Deux scénarios E2E dont un autour de la suppression par id (`e2e.test.ts`). |
-| **V** | Preuves d’exécution locale Vitest (dossier `typescript/proofs/`, liens ci-dessous). La CI du dépôt exécute aussi Python (`pytest`) : voir `.github/workflows/ci.yml`. |
+| **V** | Preuves d’exécution locale Vitest (dossier `typescript/proofs/`, liens ci-dessous). La **CI GitHub** ne lance que **`npm test`** dans `typescript/` (le dossier `python/` n’est pas modifié pour ce rendu). Voir `.github/workflows/ci.yml`. |
 
 ---
 
