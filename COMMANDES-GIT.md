@@ -22,7 +22,7 @@ git config --global --list
 
 ## 1. Récupérer le dépôt de départ
 
-**Option A — Tu forkes le dépôt du prof (recommandé) :**
+**Option A - Tu forkes le dépôt du prof (recommandé) :**
 
 1. Va sur le dépôt template fourni par le prof, clique sur **Fork** en haut à droite.
 2. Sur **ton** fork, copie l'URL `Code > HTTPS`.
@@ -33,7 +33,7 @@ git clone https://github.com/<ton-pseudo>/tp-tests-applicatifs.git
 cd tp-tests-applicatifs
 ```
 
-**Option B — Tu pars de zéro (Partie 5) :**
+**Option B - Tu pars de zéro (Partie 5) :**
 
 ```bash
 mkdir tp-tests-applicatifs
@@ -116,8 +116,8 @@ git commit -m "ci: active GitHub Actions pour pytest et vitest"
 ```
 
 Dans la PR, écris :
-- **Titre** : `Partie 1 — premier test vert`
-- **Description** : ce que tu as fait, les tests ajoutés, ce qui passe ✅ et ce qui reste ⚠️.
+- **Titre** : `Partie 1 - premier test vert`
+- **Description** : ce que tu as fait, les tests ajoutés, ce qui passe et ce qui reste.
 
 Une fois validée :
 
@@ -163,7 +163,7 @@ git commit -m "docs: ajoute le badge CI"
 git push
 ```
 
-🟢 Bravo, tu viens d'arborer ton premier vrai trophée de dev.
+Bravo, tu viens d'arborer ton premier vrai badge de dev.
 
 ---
 
